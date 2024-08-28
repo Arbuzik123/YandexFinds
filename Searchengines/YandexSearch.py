@@ -56,8 +56,8 @@ def SearchYandex(e, path, lock,X,Y,positions):
         product = "BRAIT " + str(df.iloc[index, 1]).split()[0] + " " + df.iloc[index, 3]
         Captcha(driver, product,None)
         links_to_get = []
-        driver.find_element(By.XPATH, "//input[@type='text']").clear()
-        driver.find_element(By.XPATH, "//input[@type='text']").send_keys(product)
+        driver.find_element(By.XPATH, "//input[@type='search']").clear()
+        driver.find_element(By.XPATH, "//input[@type='search']").send_keys(product)
         driver.find_element(By.XPATH,"//button[@data-auto='search-button']").click()
         time.sleep(10)
         Captcha(driver,product,None)
