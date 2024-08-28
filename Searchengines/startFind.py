@@ -1,38 +1,8 @@
 import math
-import time
-import os
-import re
-import pandas as pd
-from tqdm import tqdm
-import undetected_chromedriver as uc
-import pyautogui
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-import pyautogui
-import asyncio
-import datetime
-import random
 import chromedriver_autoinstaller
 from multiprocessing import Process, Lock, Semaphore
-from tkinter import Tk
-from tkinter.filedialog import askopenfilename
-from unidecode import unidecode
-import time
-from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
-from selenium.webdriver.common.keys import Keys
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 import os
-import re
-from selenium.webdriver.support.ui import WebDriverWait
-import time
-import undetected_chromedriver as uc
-from collections import Counter
-from DefOzon.updateOzon import updateOzon, updateYandex, updateWildberries, updateSberMega
 from Searchengines.YandexSearch import SearchYandex
 chromedriver_autoinstaller.install()
 async def YandexFind(cat):
