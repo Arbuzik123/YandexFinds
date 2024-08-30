@@ -10,6 +10,7 @@ from Searchengines.Find_Captcha import Captcha
 from Searchengines.ConverExtract import convert_symbols_in_brackets
 import pandas as pd
 import re
+import os
 def SearchYandex(e, path, lock,X,Y,positions):
     def process_elementya(element,text,file_path):
         print("Подцикл")
@@ -38,10 +39,46 @@ def SearchYandex(e, path, lock,X,Y,positions):
                 add_value_to_next_empty_cell_in_row(df, index, str(link))
                 df.to_excel(file_path, index=False)
                 print("Успешно добавлено")
+
+    custom_dir = "driver"
+
+    # Создаем директорию, если она не существует
+    os.makedirs(custom_dir, exist_ok=True)
+
+    # Создаем патчер с указанием пользовательского пути для сохранения chromedriver
+    unique_id = str(uuid.uuid4())
+
+    # Задаем уникальный путь для сохранения chromedriver
+    custom_dir = f"driver_{unique_id}"
+
+    # Создаем директорию, если она не существует
+    os.makedirs(custom_dir, exist_ok=True)
+
+    # Создаем патчер с указанием пользовательского пути для сохранения chromedriver
+    patcher = uc.Patcher(executable_path=os.path.join(custom_dir, 'chromedriver.exe'))
+    patcher.auto()  # Автоматическая настройка патчера
+
+    # Опции для Chrome
+    unique_id = str(uuid.uuid4())
+
+    # Задаем уникальный путь для сохранения chromedriver
+    custom_dir = f"driver_{unique_id}"
+
+    # Создаем директорию, если она не существует
+    os.makedirs(custom_dir, exist_ok=True)
+
+    # Создаем патчер с указанием пользовательского пути для сохранения chromedriver
+    patcher = uc.Patcher(executable_path=os.path.join(custom_dir, 'chromedriver.exe'))
+    patcher.auto()  # Автоматическая настройка патчера
+
+    # Опции для Chrome
     options = webdriver.ChromeOptions()
-    options.add_argument("--user-data-dir=C:/Users/User/AppData/Local/Google/Chrome/User Data")
-    options.add_argument(f'--profile-directory=Profile 1')
-    driver = uc.Chrome(options=options)
+    # Используем уникальные пользовательские данные и профиль для каждого процесса
+    options.add_argument(f"--user-data-dir=C:/Users/User/AppData/Local/Google/Chrome/User Data/{unique_id}")
+    options.add_argument(f'--profile-directory=Profile_{unique_id}')
+
+    # Создание экземпляра Chrome с патчером
+    driver = uc.Chrome(options=options, patcher=patcher)
     driver.set_window_size(X, Y)
     driver.set_window_position(*positions, windowHandle='current')
     file_path = path.split("_")[0]
