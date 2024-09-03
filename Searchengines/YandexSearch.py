@@ -11,6 +11,7 @@ from Searchengines.ConverExtract import convert_symbols_in_brackets
 import pandas as pd
 import re
 import os
+import uuid
 def SearchYandex(e, path, lock,X,Y,positions):
     def process_elementya(element,text,file_path):
         print("Подцикл")
