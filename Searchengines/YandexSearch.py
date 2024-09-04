@@ -41,29 +41,10 @@ def SearchYandex(e, path, lock,X,Y,positions):
                 df.to_excel(file_path, index=False)
                 print("Успешно добавлено")
 
-    custom_dir = "driver"
-
-    # Создаем директорию, если она не существует
-    os.makedirs(custom_dir, exist_ok=True)
-
-    # Создаем патчер с указанием пользовательского пути для сохранения chromedriver
     unique_id = str(uuid.uuid4())
 
     # Задаем уникальный путь для сохранения chromedriver
-    custom_dir = f"driver_{unique_id}"
-
-    # Создаем директорию, если она не существует
-    os.makedirs(custom_dir, exist_ok=True)
-
-    # Создаем патчер с указанием пользовательского пути для сохранения chromedriver
-    patcher = uc.Patcher(executable_path=os.path.join(custom_dir, 'chromedriver.exe'))
-    patcher.auto()  # Автоматическая настройка патчера
-
-    # Опции для Chrome
-    unique_id = str(uuid.uuid4())
-
-    # Задаем уникальный путь для сохранения chromedriver
-    custom_dir = f"driver_{unique_id}"
+    custom_dir = f"driver"
 
     # Создаем директорию, если она не существует
     os.makedirs(custom_dir, exist_ok=True)
@@ -75,11 +56,11 @@ def SearchYandex(e, path, lock,X,Y,positions):
     # Опции для Chrome
     options = webdriver.ChromeOptions()
     # Используем уникальные пользовательские данные и профиль для каждого процесса
-    options.add_argument(f"--user-data-dir=C:/Users/User/AppData/Local/Google/Chrome/User Data/{unique_id}")
-    options.add_argument(f'--profile-directory=Profile_{unique_id}')
+    options.add_argument(f"--user-data-dir=C:/Users/User/AppData/Local/Google/Chrome/User Data/")
+    options.add_argument(f'--profile-directory=Profile 1')
 
     # Создание экземпляра Chrome с патчером
-    driver = uc.Chrome(options=options, patcher=patcher)
+    driver = uc.Chrome(options=options, patcher=patcher, driver_executable_path=fr"C:\Users\user\PycharmProjects\YandexFind\driver\chromedriver.exe")
     driver.set_window_size(X, Y)
     driver.set_window_position(*positions, windowHandle='current')
     file_path = path.split("_")[0]
@@ -94,8 +75,8 @@ def SearchYandex(e, path, lock,X,Y,positions):
         product = "BRAIT " + str(df.iloc[index, 1]).split()[0] + " " + df.iloc[index, 3]
         Captcha(driver, product,None)
         links_to_get = []
-        driver.find_element(By.XPATH, "//input[@type='search']").clear()
-        driver.find_element(By.XPATH, "//input[@type='search']").send_keys(product)
+        driver.find_element(By.XPATH, "//input[@data-auto='search-input']").clear()
+        driver.find_element(By.XPATH, "//input[@data-auto='search-input']").send_keys(product)
         driver.find_element(By.XPATH,"//button[@data-auto='search-button']").click()
         time.sleep(10)
         Captcha(driver,product,None)
